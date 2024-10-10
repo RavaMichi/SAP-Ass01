@@ -6,10 +6,8 @@ import java.util.List;
  * Interface modeling a rental service for EBikes
  */
 public interface EBikeRentalService {
-    void addUser(String id, P2d position);
-    void addEBike(String id);
-    User getUser();
-    EBike getEBike();
+    void addEBike(String id, P2d position);
+    void addUser(String id);
     List<User> getUsers();
     List<EBike> getEBikes();
 
