@@ -108,7 +108,7 @@ public class EBikeApp extends JFrame implements ActionListener {
     	var ride = new Ride(idRide, u, b);
     	b.updateState(EBike.EBikeState.IN_USE);
     	rides.put(idRide, ride);
-    	ride.start(this);
+//    	ride.start(this);
         
         log("started new Ride " + ride);        
     }

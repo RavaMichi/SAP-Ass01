@@ -21,5 +21,5 @@ public interface DataStorage {
      * @return
      * @param <T>
      */
-    <T> Optional<T> find(String id);
+    <T> Optional<T> find(String id, Class<T> type);
 }
