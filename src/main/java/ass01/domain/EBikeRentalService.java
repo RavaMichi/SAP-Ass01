@@ -8,6 +8,8 @@ import java.util.List;
 public interface EBikeRentalService {
     void addUser(String id, P2d position);
     void addEBike(String id);
+    User getUser();
+    EBike getEBike();
     List<User> getUsers();
     List<EBike> getEBikes();
 
