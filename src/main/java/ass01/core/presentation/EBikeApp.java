@@ -1,6 +1,9 @@
-package ass01.presentation;
+package ass01.core.presentation;
 
-import ass01.domain.*;
+import ass01.core.domain.EBike;
+import ass01.core.domain.P2d;
+import ass01.core.domain.Ride;
+import ass01.core.domain.User;
 
 import javax.swing.*;
 import java.awt.*;

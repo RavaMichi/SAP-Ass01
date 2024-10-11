@@ -1,5 +1,8 @@
-package ass01.domain;
+package ass01.core.domain;
 
+import ass01.core.domain.EBike;
+import ass01.core.domain.P2d;
+import ass01.core.domain.User;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonArray;
@@ -7,6 +10,9 @@ import io.vertx.core.json.JsonObject;
 
 import java.util.List;
 
+/**
+ * Rental service server, for http client service
+ */
 public class EBikeRentalServiceHTTPServer {
 
     public EBikeRentalServiceHTTPServer(final int port) {
@@ -118,7 +124,11 @@ public class EBikeRentalServiceHTTPServer {
         });
     }
     private void addEBike(String id, P2d position) {
-
+//        EBike bike = new EBike(id);
+//        bike.updateLocation(position);
+//        bikes.put(id, bike);
+//        log("added new EBike " + bike);
+//        centralPanel.refresh();
     }
 
     private void addUser(String id) {

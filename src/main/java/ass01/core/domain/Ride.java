@@ -1,4 +1,4 @@
-package ass01.domain;
+package ass01.core.domain;
 
 import java.util.Date;
 import java.util.Optional;

@@ -1,4 +1,9 @@
-package ass01.domain;
+package ass01.core.domain;
+
+import ass01.core.domain.P2d;
+import ass01.core.domain.Ride;
+import ass01.core.domain.User;
+import ass01.core.domain.V2d;
 
 public class RideSimulation extends Thread {
 	

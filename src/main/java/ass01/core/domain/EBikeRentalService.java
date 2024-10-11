@@ -1,4 +1,8 @@
-package ass01.domain;
+package ass01.core.domain;
+
+import ass01.core.domain.EBike;
+import ass01.core.domain.P2d;
+import ass01.core.domain.User;
 
 import java.util.List;
 

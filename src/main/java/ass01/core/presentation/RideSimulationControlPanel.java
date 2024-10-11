@@ -1,6 +1,6 @@
-package ass01.presentation;
+package ass01.core.presentation;
 
-import ass01.domain.Ride;
+import ass01.core.domain.Ride;
 
 import javax.swing.*;
 import java.awt.*;

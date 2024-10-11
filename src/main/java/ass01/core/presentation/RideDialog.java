@@ -1,4 +1,4 @@
-package ass01.presentation;
+package ass01.core.presentation;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,63 +6,64 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * 
  * Adapted from AddEBikeDialog
  * 
  */
-public class AddUserDialog extends JDialog {
+public class RideDialog extends JDialog {
 
-    private JTextField idField, errorField;
-    private JButton okButton;
+    private JTextField idEBikeField;
+    private JTextField userName;
+    private JButton startButton;
     private JButton cancelButton;
     private EBikeApp app;
+    private String userRiding;
+    private String bikeId;
 
-    public AddUserDialog(EBikeApp owner) {
-        super(owner, "Adding User", true);
-        app = owner;
+    public RideDialog(EBikeApp owner) {
+        super(owner, "Start Riding an EBike", true);
         initializeComponents();
         setupLayout();
         addEventHandlers();
         pack();
         setLocationRelativeTo(owner);
+        app = owner;
     }
 
     private void initializeComponents() {
-        idField = new JTextField(15);
-        errorField = new JTextField(25);
-        okButton = new JButton("OK");
+        idEBikeField = new JTextField(15);
+        userName = new JTextField(15);
+        startButton = new JButton("Start Riding");
         cancelButton = new JButton("Cancel");
     }
 
     private void setupLayout() {
         JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        inputPanel.add(new JLabel("User ID:"));
-        inputPanel.add(idField);
+        inputPanel.add(new JLabel("User name:"));
+        inputPanel.add(userName);
+        inputPanel.add(new JLabel("E-Bike to ride:"));
+        inputPanel.add(idEBikeField);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.add(okButton);
+        buttonPanel.add(startButton);
         buttonPanel.add(cancelButton);
-
-        // JPanel errorPanel = new JPanel();
-        // errorPanel.add(errorField);
 
         setLayout(new BorderLayout(10, 10));
         add(inputPanel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-        // add(errorPanel, BorderLayout.SOUTH);
     }
 
     private void addEventHandlers() {
-        okButton.addActionListener(new ActionListener() {
+        startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Implement OK button behavior here
-                String id = idField.getText();
-                app.addUser(id);                
-                dispose();
+                bikeId = idEBikeField.getText();
+	            userRiding = userName.getText();
+	            cancelButton.setEnabled(false);
+	            app.startNewRide(userRiding, bikeId);
+	            dispose();
             }
         });
-
+        
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,11 +71,12 @@ public class AddUserDialog extends JDialog {
             }
         });
     }
-
+    
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            AddUserDialog dialog = new AddUserDialog(null);
+        	RideDialog dialog = new RideDialog(null);
             dialog.setVisible(true);
         });
     }
+    
 }

@@ -1,5 +1,6 @@
-package ass01.database;
+package ass01.core.database;
 
+import java.util.Collection;
 import java.util.Optional;
 
 /**
@@ -22,4 +23,12 @@ public interface DataStorage {
      * @param <T>
      */
     <T> Optional<T> find(String id, Class<T> type);
+
+    /**
+     * Get all the data of a given class
+     * @param type
+     * @return
+     * @param <T>
+     */
+    <T> Collection<T> findAll(Class<T> type);
 }

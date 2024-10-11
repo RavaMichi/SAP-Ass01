@@ -1,9 +1,12 @@
-package ass01.database;
+package ass01.core.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ass01.core.database.DataStorage;
+import ass01.core.database.HashMapStorage;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 public class HashMapStorageTest {
@@ -27,5 +30,25 @@ public class HashMapStorageTest {
 
         assertEquals(storage.find("wrong id", Integer.class), Optional.empty());
         assertEquals(storage.find("id-0", Double.class), Optional.empty());
+    }
+
+    @Test
+    public void testFindAll() {
+        DataStorage storage = new HashMapStorage();
+        storage.save("id-0", 1);
+        storage.save("id-1", 2);
+        storage.save("id-3", 3);
+
+        assertEquals(storage.findAll(Integer.class).stream().sorted().toList(), List.of(1, 2, 3));
+    }
+
+    @Test
+    public void testFindAllError() {
+        DataStorage storage = new HashMapStorage();
+        storage.save("id-0", 1);
+        storage.save("id-1", 2);
+        storage.save("id-3", 3);
+
+        assertEquals(storage.findAll(String.class).stream().sorted().toList(), List.of());
     }
 }

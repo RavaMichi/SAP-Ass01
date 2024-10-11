@@ -1,7 +1,9 @@
-package ass01.database;
+package ass01.core.database;
 
-import java.lang.reflect.ParameterizedType;
+import io.vertx.core.net.impl.pool.PoolConnector;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -21,6 +23,11 @@ public class HashMapStorage implements DataStorage {
     @Override
     public <T> Optional<T> find(String id, Class<T> type) {
         return (Optional<T>) Optional.ofNullable(hashmap.get(id)).filter(o -> o.getClass().equals(type));
+    }
+
+    @Override
+    public <T> List<T> findAll(Class<T> type) {
+        return (List<T>) hashmap.values().stream().filter(o -> o.getClass().equals(type)).toList();
     }
 
 }

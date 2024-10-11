@@ -7,7 +7,7 @@
  * Use is subject to license terms.
  *
  */
-package ass01.domain;
+package ass01.core.domain;
 
 /**
  *
