@@ -1,6 +1,9 @@
 package ass01.core.domain;
 
-public class EBike  {
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+public class EBike  implements java.io.Serializable {
 
 	private String id;
 	public enum EBikeState { AVAILABLE, IN_USE, MAINTENANCE}	
@@ -9,7 +12,7 @@ public class EBike  {
 	private V2d direction; 
 	private double speed;
 	private int batteryLevel;  /* 0..100 */
-	
+
 	public EBike(String id) {
 		this.id = id;
 		this.state = EBikeState.AVAILABLE;
@@ -42,7 +45,9 @@ public class EBike  {
 			state = EBikeState.MAINTENANCE;
 		}
 	}
-
+	public void setBatteryLevel(int level) {
+		this.batteryLevel = level;
+	}
 	
 	public boolean isAvailable() {
 		return state.equals(EBikeState.AVAILABLE);

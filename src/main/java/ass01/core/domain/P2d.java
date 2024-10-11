@@ -1,5 +1,8 @@
 package ass01.core.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * 2-dimensional point
@@ -10,7 +13,8 @@ public class P2d implements java.io.Serializable {
 
     private double x,y;
 
-    public P2d(double x,double y){
+    @JsonCreator
+    public P2d(@JsonProperty("x") double x, @JsonProperty("y") double y){
         this.x=x;
         this.y=y;
     }

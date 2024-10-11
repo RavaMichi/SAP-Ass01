@@ -4,10 +4,13 @@ public class User {
 
 	private String id;
 	private int credit;
-	
-	public User(String id) {
+
+	public User(String id, int credit) {
 		this.id = id;
-		this.credit = 0;
+		this.credit = credit;
+	}
+	public User(String id) {
+		this(id, 0);
 	}
 	
 	public String getId() {

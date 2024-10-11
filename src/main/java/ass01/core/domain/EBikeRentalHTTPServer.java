@@ -1,9 +1,6 @@
 package ass01.core.domain;
 
 import ass01.core.database.DataStorage;
-import ass01.core.domain.EBike;
-import ass01.core.domain.P2d;
-import ass01.core.domain.User;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonArray;
@@ -14,15 +11,16 @@ import java.util.List;
 /**
  * Rental service server, for http client service
  */
-public class EBikeRentalServiceHTTPServer implements EBikeRentalService {
+public class EBikeRentalHTTPServer implements EBikeRentalService {
 
     private final DataStorage storage;
+    private final HttpServer server;
 
-    public EBikeRentalServiceHTTPServer(final int port, final DataStorage storage) {
+    public EBikeRentalHTTPServer(final int port, final DataStorage storage) {
         this.storage = storage;
 
         Vertx vertx = Vertx.vertx();
-        HttpServer server = vertx.createHttpServer();
+        this.server = vertx.createHttpServer();
 
         // make the server
         server.requestHandler(req -> {
@@ -33,16 +31,17 @@ public class EBikeRentalServiceHTTPServer implements EBikeRentalService {
 
                 // get all ebikes
                 if (requested.equals("ebikes")) {
-                    getEBikes().forEach(jsonResponse::add);
+                    getEBikes().forEach(b -> jsonResponse.add(JsonConverter.encode(b)));
                 }
                 // get all users
                 if (requested.equals("users")) {
-                    getUsers().forEach(jsonResponse::add);
+                    getUsers().forEach(b -> jsonResponse.add(JsonConverter.encode(b)));
                 }
 
                 req.response()
                         .putHeader("content-type", "application/json")
                         .end(jsonResponse.encodePrettily());
+                return;
 
             } else if (req.method().name().equalsIgnoreCase("POST")) {
                 req.bodyHandler(body -> {
@@ -52,7 +51,7 @@ public class EBikeRentalServiceHTTPServer implements EBikeRentalService {
                     // add ebike
                     if ("ebike".equalsIgnoreCase(type)) {
                         String bikeId = entity.getString("id");
-                        P2d position = entity.getJsonObject("pos").mapTo(P2d.class);
+                        P2d position = JsonConverter.asP2d(entity.getJsonObject("pos"));
                         try {
                             addEBike(bikeId, position);
                             req.response()
@@ -114,6 +113,7 @@ public class EBikeRentalServiceHTTPServer implements EBikeRentalService {
                                 .end("Bad request: use 'ebike', 'user', 'start-ride', 'end-ride'");
                     }
                 });
+                return;
             }
 
             req.response().setStatusCode(405).end("Wrong Command.");

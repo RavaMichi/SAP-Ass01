@@ -2,8 +2,6 @@ package ass01.core.database;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import ass01.core.database.DataStorage;
-import ass01.core.database.HashMapStorage;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
