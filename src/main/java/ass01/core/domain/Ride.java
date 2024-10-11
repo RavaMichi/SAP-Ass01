@@ -1,5 +1,7 @@
 package ass01.core.domain;
 
+import ass01.core.database.DataStorage;
+
 import java.util.Date;
 import java.util.Optional;
 
@@ -25,15 +27,11 @@ public class Ride {
 		return id;
 	}
 
-//	public void start(EBikeApp app) {
-//		ongoing = true;
-//        rideSimulation = new RideSimulation(this, user, app);
-//        RideSimulationControlPanel ridingWindow = new RideSimulationControlPanel(this, app);
-//        ridingWindow.display();
-//        rideSimulation.start();
-//
-//
-//	}
+	public void start(DataStorage storage) {
+		ongoing = true;
+        rideSimulation = new RideSimulation(this, storage);
+        rideSimulation.start();
+	}
 	
 	public void end() {
 		endDate = Optional.of(new Date());

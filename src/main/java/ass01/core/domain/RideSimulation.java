@@ -1,27 +1,22 @@
 package ass01.core.domain;
 
-import ass01.core.domain.P2d;
-import ass01.core.domain.Ride;
-import ass01.core.domain.User;
-import ass01.core.domain.V2d;
+import ass01.core.database.DataStorage;
 
 public class RideSimulation extends Thread {
 	
-	private Ride ride;
-	private User user;
-	
-//	private EBikeApp app;
+	private final Ride ride;
+	private final DataStorage storage;
 	private volatile boolean stopped;
 	
-	public RideSimulation(Ride ride, User user/*, EBikeApp app*/) {
+	public RideSimulation(Ride ride, DataStorage storage) {
 		this.ride = ride;
-		this.user = user;
-//		this.app = app;
+		this.storage = storage;
 		stopped = false;
 	}
 	
 	public void run() {
 		var b = ride.getEBike();
+		var user = ride.getUser();
 		b.updateSpeed(1);
 		
 		var lastTimeDecreasedCredit = System.currentTimeMillis();
@@ -72,10 +67,11 @@ public class RideSimulation extends Thread {
 				user.decreaseCredit(1);
 				lastTimeDecreasedCredit = System.currentTimeMillis();
 			}
-			
-//			app.refreshView();
 
-			
+			// update database
+			storage.update(b.getId(), b);
+			storage.update(user.getId(), user);
+
 			try {
 				Thread.sleep(20);
 			} catch (Exception ex) {}

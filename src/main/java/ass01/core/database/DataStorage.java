@@ -1,6 +1,6 @@
 package ass01.core.database;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -10,11 +10,28 @@ public interface DataStorage {
 
     /**
      * Save a given data block, ad associate it with id.
+     * If already present, throws an error.
      * @param id
      * @param data
      * @param <T>
      */
     <T> void save(String id, T data);
+
+    /**
+     * Updates a given data block by id.
+     * If not present, throws an error.
+     * @param id
+     * @param data
+     * @param <T>
+     */
+    <T> void update(String id, T data);
+
+    /**
+     * Deletes a data of given id. If there is no data found, does nothing
+     * @param id
+     * @param <T>
+     */
+    <T> void delete(String id);
 
     /**
      * Get the data linked to the id. Returns an empty optional if there is no data.
@@ -30,5 +47,5 @@ public interface DataStorage {
      * @return
      * @param <T>
      */
-    <T> Collection<T> findAll(Class<T> type);
+    <T> List<T> findAll(Class<T> type);
 }
