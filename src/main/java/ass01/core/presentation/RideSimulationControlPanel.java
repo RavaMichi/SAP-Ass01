@@ -10,21 +10,16 @@ import java.awt.event.ActionListener;
 public class RideSimulationControlPanel extends JFrame {
 
     private JButton stopButton;
-    private EBikeApp app;
-    private Ride ride;
 
-    public RideSimulationControlPanel(Ride ride, EBikeApp app) {
-        super("Ongoing Ride: " + ride.getId());
+    public RideSimulationControlPanel(String userId, String bikeId, AppView app) {
+        super("Ongoing Ride: (" + userId + ", " + bikeId + ")");
     	setSize(400, 200);
-        
-        this.app = app;
-        this.ride = ride;
 
         stopButton = new JButton("Stop Riding");
     	
         JPanel inputPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        inputPanel.add(new JLabel("Rider name: " + ride.getUser().getId()));
-        inputPanel.add(new JLabel("Riding e-bike: " + ride.getEBike().getId()));
+        inputPanel.add(new JLabel("Rider name: " + userId));
+        inputPanel.add(new JLabel("Riding e-bike: " + bikeId));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(stopButton);
@@ -36,7 +31,7 @@ public class RideSimulationControlPanel extends JFrame {
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.endRide(ride.getId());
+                app.callRentalService(s -> s.endRide(userId, bikeId));
         		dispose();
             }
         });

@@ -1,9 +1,6 @@
 package ass01.core.presentation;
 
-import ass01.core.domain.EBike;
-import ass01.core.domain.P2d;
-import ass01.core.domain.Ride;
-import ass01.core.domain.User;
+import ass01.core.domain.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,36 +8,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.Collection;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 
-public class EBikeApp extends JFrame implements ActionListener {
-    
+public class AppView extends JFrame implements ActionListener {
+
+	private static final long POLLING_TIME = 100;
     private VisualiserPanel centralPanel;
     private JButton addUserButton, addEBikeButton, startRideButton;
-    private ConcurrentHashMap<String, EBike> bikes;
-    private HashMap<String, User> users;
-    private HashMap<String, Ride> rides;
+	private EBikeRentalService service;
     
-    private int rideId;
-    
-    public EBikeApp(){
+    public AppView(EBikeRentalService service){
+		this.service = service;
         setupView();
-        setupModel();
-    }
-
-    
-    protected void setupModel() {
-        bikes = new ConcurrentHashMap<String, EBike>();
-        users = new HashMap<String, User>();
-        rides = new HashMap<String, Ride>();
-        
-        rideId = 0;
-        this.addUser("u1");
-        this.addEBike("b1", new P2d(0,0));
     }
 
     protected void setupView() {
@@ -65,74 +45,52 @@ public class EBikeApp extends JFrame implements ActionListener {
 		topPanel.add(startRideButton);		
 	    add(topPanel,BorderLayout.NORTH);
 
-        centralPanel = new VisualiserPanel(800,500,this);
+        centralPanel = new VisualiserPanel(800,500,service);
 	    add(centralPanel,BorderLayout.CENTER);
-
 	    	    		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent ev) {
-				System.exit(-1);
+				System.exit(0);
 			}
 		});
+
+		startPolling();
     }
+
+	/**
+	 * Instead of being notified by the domain, it uses polling to update itself
+	 * (like a client-server arch, where only the client makes requests)
+	 */
+	private void startPolling() {
+		new Thread(() -> {
+			while (true) {
+                try {
+					refreshView();
+                    Thread.sleep(POLLING_TIME);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+		}).start();
+	}
 
     public void display() {
     	SwingUtilities.invokeLater(() -> {
     		this.setVisible(true);
     	});
     }
-        
-    public void addEBike(String id, P2d loc) {
-    	EBike bike = new EBike(id);
-    	bike.updateLocation(loc);
-    	bikes.put(id, bike);
-    	log("added new EBike " + bike);
-    	centralPanel.refresh();
-    }
-    
-    public EBike getEBike(String id) {
-    	return bikes.get(id);
-    }
-
-    public void addUser(String id) {
-    	User user = new User(id);
-    	user.rechargeCredit(100);
-    	users.put(id, user);
-    	log("added new User " + user);
-    	centralPanel.refresh();
-    }
-
-    public void startNewRide(String userId, String bikeId) {
-    	rideId++;    	 
-    	String idRide = "ride-" + rideId;
-    	
-    	var b = bikes.get(bikeId);
-    	var u = users.get(userId);
-    	var ride = new Ride(idRide, u, b);
-    	b.updateState(EBike.EBikeState.IN_USE);
-    	rides.put(idRide, ride);
-//    	ride.start(this);
-        
-        log("started new Ride " + ride);        
-    }
-
-    public void endRide(String rideId) {
-    	var r = rides.get(rideId);
-    	r.end();
-    	rides.remove(rideId);
-    }
-    
-    public Enumeration<EBike> getEBikes(){
-    	return bikes.elements();
-    }
-        
-    public Collection<User> getUsers(){
-    	return users.values();
-    }
     
     public void refreshView() {
     	centralPanel.refresh();
     }
+
+	/**
+	 * Execute an action on the service of this app
+	 * @param action
+	 */
+	public void callRentalService(Consumer<EBikeRentalService> action) {
+		action.accept(this.service);
+	}
         
 
     @Override
@@ -156,9 +114,9 @@ public class EBikeApp extends JFrame implements ActionListener {
     public static class VisualiserPanel extends JPanel {
         private long dx;
         private long dy;
-        private EBikeApp app;
+        private EBikeRentalService app;
         
-        public VisualiserPanel(int w, int h, EBikeApp app){
+        public VisualiserPanel(int w, int h, EBikeRentalService app){
             setSize(w,h);
             dx = w/2 - 20;
             dy = h/2 - 20;
@@ -173,17 +131,15 @@ public class EBikeApp extends JFrame implements ActionListener {
     		g2.setRenderingHint(RenderingHints.KEY_RENDERING,
     		          RenderingHints.VALUE_RENDER_QUALITY);
     		g2.clearRect(0,0,this.getWidth(),this.getHeight());
-            
-    		var it = app.getEBikes().asIterator();
-    		while (it.hasNext()) {
-    			var b = it.next();
-    			var p = b.getLocation();
-    			int x0 = (int)(dx+p.x());
-		        int y0 = (int)(dy-p.y());
-		        g2.drawOval(x0,y0,20,20);
-		        g2.drawString(b.getId(), x0, y0 + 35);
-		        g2.drawString("(" + (int)p.x() + "," + (int)p.y() + ")", x0, y0+50);
-    		} 
+
+            for (EBike b : app.getEBikes()) {
+                var p = b.getLocation();
+                int x0 = (int) (dx + p.x());
+                int y0 = (int) (dy - p.y());
+                g2.drawOval(x0, y0, 20, 20);
+                g2.drawString(b.getId(), x0, y0 + 35);
+                g2.drawString("(" + (int) p.x() + "," + (int) p.y() + ")", x0, y0 + 50);
+            }
     		
     		var it2 = app.getUsers().iterator();
     		var y = 20;
@@ -203,9 +159,9 @@ public class EBikeApp extends JFrame implements ActionListener {
 
 	
 	
-	public static void main(String[] args) {
-		var w = new EBikeApp();
-		w.display();
-	}
+//	public static void main(String[] args) {
+//		var w = new EBikeApp();
+//		w.display();
+//	}
 	
 }

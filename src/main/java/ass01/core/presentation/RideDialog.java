@@ -15,11 +15,11 @@ public class RideDialog extends JDialog {
     private JTextField userName;
     private JButton startButton;
     private JButton cancelButton;
-    private EBikeApp app;
+    private AppView app;
     private String userRiding;
     private String bikeId;
 
-    public RideDialog(EBikeApp owner) {
+    public RideDialog(AppView owner) {
         super(owner, "Start Riding an EBike", true);
         initializeComponents();
         setupLayout();
@@ -59,7 +59,9 @@ public class RideDialog extends JDialog {
                 bikeId = idEBikeField.getText();
 	            userRiding = userName.getText();
 	            cancelButton.setEnabled(false);
-	            app.startNewRide(userRiding, bikeId);
+                app.callRentalService(s -> s.startNewRide(userRiding, bikeId));
+                // add end-ride dialog
+                new RideSimulationControlPanel(userRiding, bikeId, app).display();
 	            dispose();
             }
         });

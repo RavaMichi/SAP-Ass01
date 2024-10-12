@@ -29,9 +29,9 @@ public class AddEBikeDialog extends JDialog {
     private JTextField yCoordField;
     private JButton okButton;
     private JButton cancelButton;
-    private EBikeApp app;
+    private AppView app;
     
-    public AddEBikeDialog(EBikeApp owner) {
+    public AddEBikeDialog(AppView owner) {
         super(owner, "Adding E-Bike", true);
         this.app = owner;
         initializeComponents();
@@ -75,7 +75,7 @@ public class AddEBikeDialog extends JDialog {
                 String id = idField.getText();
                 String xCoord = xCoordField.getText();
                 String yCoord = yCoordField.getText();
-                app.addEBike(id, new P2d(Integer.parseInt(xCoord), Integer.parseInt(yCoord)));
+                app.callRentalService(s -> s.addEBike(id, new P2d(Integer.parseInt(xCoord), Integer.parseInt(yCoord))));
                 dispose();
             }
         });
