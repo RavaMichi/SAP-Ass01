@@ -1,7 +1,5 @@
 package ass01.core.presentation;
 
-import ass01.core.domain.Ride;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

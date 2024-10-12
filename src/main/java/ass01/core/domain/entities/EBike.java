@@ -1,7 +1,4 @@
-package ass01.core.domain;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+package ass01.core.domain.entities;
 
 public class EBike  implements java.io.Serializable {
 

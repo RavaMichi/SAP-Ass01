@@ -1,28 +1,27 @@
-package ass01.core.domain;
+package ass01.core.domain.services;
 
 import ass01.core.database.DataStorage;
+import ass01.core.domain.entities.EBike;
+import ass01.core.domain.entities.P2d;
+import ass01.core.domain.entities.User;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
-public class EBikeRentalHTTPClient implements EBikeRentalService {
+public class RentalServiceHTTPClient implements RentalService {
 
     private final WebClient client;
     private final int port;
     private final String address = "localhost";
-    public EBikeRentalHTTPClient(final int port, DataStorage storage) {
+    public RentalServiceHTTPClient(final int port, DataStorage storage) {
         this.port = port;
         Vertx vertx = Vertx.vertx();
         // client
         this.client = WebClient.create(vertx);
         // start server if down
-        new EBikeRentalHTTPServer(port, storage);
+        new TOREMOVEHTTPServer(port, storage);
     }
     @Override
     public void addEBike(String id, P2d position) {

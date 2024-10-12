@@ -1,7 +1,12 @@
-package ass01.core.domain;
+package ass01.core.domain.services;
 
 import ass01.core.database.DataStorage;
 import ass01.core.database.HashMapStorage;
+import ass01.core.domain.entities.EBike;
+import ass01.core.domain.entities.P2d;
+import ass01.core.domain.entities.User;
+import ass01.core.domain.services.RentalService;
+import ass01.core.domain.services.RentalServiceHTTPClient;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -14,7 +19,7 @@ public class HTTPClientTest {
     @Test
     public void clientCreation() {
         DataStorage storage = new HashMapStorage();
-        EBikeRentalService client = new EBikeRentalHTTPClient(port, storage);
+        RentalService client = new RentalServiceHTTPClient(port, storage);
 
         assertTrue(client.getUsers().isEmpty());
         assertTrue(client.getEBikes().isEmpty());
@@ -22,7 +27,7 @@ public class HTTPClientTest {
     @Test
     public void clientUserInsertion() {
         DataStorage storage = new HashMapStorage();
-        EBikeRentalService client = new EBikeRentalHTTPClient(port, storage);
+        RentalService client = new RentalServiceHTTPClient(port, storage);
 
         client.addUser("bob");
 
@@ -31,7 +36,7 @@ public class HTTPClientTest {
     @Test
     public void clientBikeInsertion() {
         DataStorage storage = new HashMapStorage();
-        EBikeRentalService client = new EBikeRentalHTTPClient(port, storage);
+        RentalService client = new RentalServiceHTTPClient(port, storage);
 
         client.addEBike("bike", new P2d(0, 0.5));
 
@@ -40,7 +45,7 @@ public class HTTPClientTest {
     @Test
     public void clientRide() throws InterruptedException {
         DataStorage storage = new HashMapStorage();
-        EBikeRentalService client = new EBikeRentalHTTPClient(port, storage);
+        RentalService client = new RentalServiceHTTPClient(port, storage);
 
         client.addUser("u1");
         client.addEBike("b1", new P2d(0, 0));

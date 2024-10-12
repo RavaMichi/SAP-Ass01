@@ -1,6 +1,6 @@
 package ass01.core.presentation;
 
-import ass01.core.domain.P2d;
+import ass01.core.domain.entities.P2d;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,6 +1,7 @@
 package ass01.core.presentation;
 
-import ass01.core.domain.*;
+import ass01.core.domain.entities.EBike;
+import ass01.core.domain.services.RentalService;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +17,9 @@ public class AppView extends JFrame implements ActionListener {
 	private static final long POLLING_TIME = 100;
     private VisualiserPanel centralPanel;
     private JButton addUserButton, addEBikeButton, startRideButton;
-	private EBikeRentalService service;
+	private RentalService service;
     
-    public AppView(EBikeRentalService service){
+    public AppView(RentalService service){
 		this.service = service;
         setupView();
     }
@@ -88,7 +89,7 @@ public class AppView extends JFrame implements ActionListener {
 	 * Execute an action on the service of this app
 	 * @param action
 	 */
-	public void callRentalService(Consumer<EBikeRentalService> action) {
+	public void callRentalService(Consumer<RentalService> action) {
 		action.accept(this.service);
 	}
         
@@ -114,9 +115,9 @@ public class AppView extends JFrame implements ActionListener {
     public static class VisualiserPanel extends JPanel {
         private long dx;
         private long dy;
-        private EBikeRentalService app;
+        private RentalService app;
         
-        public VisualiserPanel(int w, int h, EBikeRentalService app){
+        public VisualiserPanel(int w, int h, RentalService app){
             setSize(w,h);
             dx = w/2 - 20;
             dy = h/2 - 20;

@@ -1,6 +1,10 @@
-package ass01.core.domain;
+package ass01.core.domain.services;
 
 import ass01.core.database.DataStorage;
+import ass01.core.domain.entities.EBike;
+import ass01.core.domain.entities.P2d;
+import ass01.core.domain.entities.Ride;
+import ass01.core.domain.entities.User;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonArray;
@@ -11,12 +15,12 @@ import java.util.List;
 /**
  * Rental service server, for http client service
  */
-public class EBikeRentalHTTPServer implements EBikeRentalService {
+public class TOREMOVEHTTPServer implements RentalService {
 
     private final DataStorage storage;
     private final HttpServer server;
 
-    public EBikeRentalHTTPServer(final int port, final DataStorage storage) {
+    public TOREMOVEHTTPServer(final int port, final DataStorage storage) {
         this.storage = storage;
 
         Vertx vertx = Vertx.vertx();

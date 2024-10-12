@@ -1,4 +1,4 @@
-package ass01.core.domain;
+package ass01.core.domain.entities;
 
 import ass01.core.database.DataStorage;
 
@@ -14,13 +14,17 @@ public class Ride {
 	private boolean ongoing;
 	private String id;
 	private RideSimulation rideSimulation;
-	
-	public Ride(String id, User user, EBike ebike) {
+
+	public Ride(String id, User user, EBike ebike, Date startedDate, Optional<Date> endDate, boolean ongoing) {
 		this.id = id;
-		this.startedDate = new Date();
-		this.endDate = Optional.empty();
+		this.startedDate = startedDate;
+		this.endDate = endDate;
 		this.user = user;
 		this.ebike = ebike;
+		this.ongoing = ongoing;
+	}
+	public Ride(String id, User user, EBike ebike) {
+		this(id, user, ebike, new Date(), Optional.empty(), false);
 	}
 	
 	public String getId() {

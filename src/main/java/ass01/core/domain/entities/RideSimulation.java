@@ -1,4 +1,4 @@
-package ass01.core.domain;
+package ass01.core.domain.entities;
 
 import ass01.core.database.DataStorage;
 
