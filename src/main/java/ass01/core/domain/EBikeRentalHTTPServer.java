@@ -153,23 +153,29 @@ public class EBikeRentalHTTPServer implements EBikeRentalService {
     @Override
     public void startNewRide(String userId, String bikeId) {
         String idRide = rideId(userId, bikeId);
+        try {
+            var b = storage.find(bikeId, EBike.class).get();
+            var u = storage.find(userId, User.class).get();
+            var ride = new Ride(idRide, u, b);
+            b.updateState(EBike.EBikeState.IN_USE);
 
-        var b = storage.find(bikeId, EBike.class).get();
-        var u = storage.find(userId, User.class).get();
-        var ride = new Ride(idRide, u, b);
-        b.updateState(EBike.EBikeState.IN_USE);
+            storage.update(bikeId, b);
+            storage.save(idRide, ride);
 
-        storage.update(bikeId, b);
-        storage.save(idRide, ride);
+            ride.start(this.storage);
 
-    	ride.start(this.storage);
-
-        log("started new Ride " + ride);
+            log("started new Ride " + ride);
+        } catch (Exception e) {
+            log("cannot start ride");
+        }
     }
     @Override
     public void endRide(String userId, String bikeId) {
         var ride = rideId(userId, bikeId);
-        storage.find(ride, Ride.class).ifPresent(Ride::end);
+        storage.find(ride, Ride.class).ifPresent(r -> {
+            log("ride " + ride + " ended");
+            r.end();
+        });
         storage.delete(ride);
     }
     private static String rideId(String userId, String bikeId) {

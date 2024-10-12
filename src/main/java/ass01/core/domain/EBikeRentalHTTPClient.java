@@ -78,11 +78,15 @@ public class EBikeRentalHTTPClient implements EBikeRentalService {
 
     @Override
     public void startNewRide(String userId, String bikeId) {
-
+        client
+                .post(port, address, "/")
+                .sendJsonObject(JsonObject.of("type", "start-ride", "userId", userId, "bikeId", bikeId));
     }
 
     @Override
     public void endRide(String userId, String bikeId) {
-
+        client
+                .post(port, address, "/")
+                .sendJsonObject(JsonObject.of("type", "end-ride", "userId", userId, "bikeId", bikeId));
     }
 }
