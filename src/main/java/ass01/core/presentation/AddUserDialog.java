@@ -58,7 +58,9 @@ public class AddUserDialog extends JDialog {
             public void actionPerformed(ActionEvent e) {
                 // Implement OK button behavior here
                 String id = idField.getText();
-                app.callRentalService(s -> s.addUser(id));
+                app.callRentalService(s -> {
+                    // add user
+                });
                 dispose();
             }
         });

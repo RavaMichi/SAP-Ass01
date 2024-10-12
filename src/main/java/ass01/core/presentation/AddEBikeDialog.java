@@ -75,7 +75,9 @@ public class AddEBikeDialog extends JDialog {
                 String id = idField.getText();
                 String xCoord = xCoordField.getText();
                 String yCoord = yCoordField.getText();
-                app.callRentalService(s -> s.addEBike(id, new P2d(Integer.parseInt(xCoord), Integer.parseInt(yCoord))));
+                app.callRentalService(s -> {
+                    // add bike
+                });
                 dispose();
             }
         });

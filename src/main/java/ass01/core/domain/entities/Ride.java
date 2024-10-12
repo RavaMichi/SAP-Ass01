@@ -1,6 +1,8 @@
 package ass01.core.domain.entities;
 
 import ass01.core.database.DataStorage;
+import ass01.core.domain.services.RentalService;
+import ass01.core.domain.services.RideSimulation;
 
 import java.util.Date;
 import java.util.Optional;
@@ -31,9 +33,9 @@ public class Ride {
 		return id;
 	}
 
-	public void start(DataStorage storage) {
+	public void start() {
 		ongoing = true;
-        rideSimulation = new RideSimulation(this, storage);
+        rideSimulation = new RideSimulation(this);
         rideSimulation.start();
 	}
 	

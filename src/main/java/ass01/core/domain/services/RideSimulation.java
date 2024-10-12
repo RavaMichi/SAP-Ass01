@@ -1,16 +1,17 @@
-package ass01.core.domain.entities;
+package ass01.core.domain.services;
 
 import ass01.core.database.DataStorage;
+import ass01.core.domain.entities.P2d;
+import ass01.core.domain.entities.Ride;
+import ass01.core.domain.entities.V2d;
 
 public class RideSimulation extends Thread {
 	
 	private final Ride ride;
-	private final DataStorage storage;
 	private volatile boolean stopped;
 	
-	public RideSimulation(Ride ride, DataStorage storage) {
+	public RideSimulation(Ride ride) {
 		this.ride = ride;
-		this.storage = storage;
 		stopped = false;
 	}
 	
@@ -67,10 +68,6 @@ public class RideSimulation extends Thread {
 				user.decreaseCredit(1);
 				lastTimeDecreasedCredit = System.currentTimeMillis();
 			}
-
-			// update database
-			storage.update(b.getId(), b);
-			storage.update(user.getId(), user);
 
 			try {
 				Thread.sleep(20);

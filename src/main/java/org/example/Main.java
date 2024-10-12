@@ -21,5 +21,6 @@ public class Main {
         c.applyPlugin("add-u", new PluginParameter("bob", null));
 
         System.out.println(c.getState().users());
+        System.exit(0);
     }
 }

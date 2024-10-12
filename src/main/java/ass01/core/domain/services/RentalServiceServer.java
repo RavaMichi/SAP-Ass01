@@ -7,6 +7,7 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class RentalServiceServer implements RentalService {
         this.storage = storage;
         this.plugins = new HashMap<>();
         storage.save("state", null);
-        setState(new RentalServiceState(List.of(), List.of(), List.of()));
+        setState(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
 
         startServer(port);
     }

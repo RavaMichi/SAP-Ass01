@@ -2,6 +2,7 @@ package ass01.core.presentation;
 
 import ass01.core.domain.entities.EBike;
 import ass01.core.domain.services.RentalService;
+import ass01.core.domain.services.RentalServicePlugin;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,6 +19,7 @@ public class AppView extends JFrame implements ActionListener {
     private VisualiserPanel centralPanel;
     private JButton addUserButton, addEBikeButton, startRideButton;
 	private RentalService service;
+	private JPanel topPanel = new JPanel();
     
     public AppView(RentalService service){
 		this.service = service;
@@ -31,19 +33,18 @@ public class AppView extends JFrame implements ActionListener {
         
         setLayout(new BorderLayout());
 
-		addUserButton = new JButton("Add User");
-		addUserButton.addActionListener(this);
+//		addUserButton = new JButton("Add User");
+//		addUserButton.addActionListener(this);
+//
+//		addEBikeButton = new JButton("Add EBike");
+//		addEBikeButton.addActionListener(this);
+//
+//		startRideButton = new JButton("Start Ride");
+//		startRideButton.addActionListener(this);
 
-		addEBikeButton = new JButton("Add EBike");
-		addEBikeButton.addActionListener(this);
-
-		startRideButton = new JButton("Start Ride");
-		startRideButton.addActionListener(this);
-		
-		JPanel topPanel = new JPanel();
-		topPanel.add(addUserButton);		
-		topPanel.add(addEBikeButton);		
-		topPanel.add(startRideButton);		
+//		topPanel.add(addUserButton);
+//		topPanel.add(addEBikeButton);
+//		topPanel.add(startRideButton);
 	    add(topPanel,BorderLayout.NORTH);
 
         centralPanel = new VisualiserPanel(800,500,service);
@@ -57,6 +58,19 @@ public class AppView extends JFrame implements ActionListener {
 
 		startPolling();
     }
+
+	public void addPlugin(RentalServicePlugin plugin) {
+		service.addPlugin(plugin.operationName(), plugin);
+
+		JButton button = new JButton(plugin.operationName());
+		button.addActionListener(e -> {
+			JDialog d = new PluginParameterDialog(this, plugin);
+			d.setVisible(true);
+		});
+
+		topPanel.add(button);
+		validate();
+	}
 
 	/**
 	 * Instead of being notified by the domain, it uses polling to update itself
@@ -96,16 +110,16 @@ public class AppView extends JFrame implements ActionListener {
 
     @Override
 	public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.addEBikeButton) {
-	        JDialog d = new AddEBikeDialog(this);
-	        d.setVisible(true);
-        } else if (e.getSource() == this.addUserButton) {
-		    JDialog d = new AddUserDialog(this);
-		    d.setVisible(true);
-        } else if (e.getSource() == this.startRideButton) {
-	        JDialog d = new RideDialog(this);
-	        d.setVisible(true);
-        }
+//        if (e.getSource() == this.addEBikeButton) {
+//	        JDialog d = new AddEBikeDialog(this);
+//	        d.setVisible(true);
+//        } else if (e.getSource() == this.addUserButton) {
+//		    JDialog d = new AddUserDialog(this);
+//		    d.setVisible(true);
+//        } else if (e.getSource() == this.startRideButton) {
+//	        JDialog d = new PluginParameterDialog(this);
+//	        d.setVisible(true);
+//        }
 	}
 
 	private void log(String msg) {
@@ -133,7 +147,9 @@ public class AppView extends JFrame implements ActionListener {
     		          RenderingHints.VALUE_RENDER_QUALITY);
     		g2.clearRect(0,0,this.getWidth(),this.getHeight());
 
-            for (EBike b : app.getEBikes()) {
+			var state = app.getState();
+
+            for (EBike b : state.bikes()) {
                 var p = b.getLocation();
                 int x0 = (int) (dx + p.x());
                 int y0 = (int) (dy - p.y());
@@ -142,7 +158,7 @@ public class AppView extends JFrame implements ActionListener {
                 g2.drawString("(" + (int) p.x() + "," + (int) p.y() + ")", x0, y0 + 50);
             }
     		
-    		var it2 = app.getUsers().iterator();
+    		var it2 = state.users().iterator();
     		var y = 20;
     		while (it2.hasNext()) {
     			var u = it2.next();

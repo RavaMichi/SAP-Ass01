@@ -29,7 +29,9 @@ public class RideSimulationControlPanel extends JFrame {
         stopButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                app.callRentalService(s -> s.endRide(userId, bikeId));
+                app.callRentalService(s -> {
+                    // end ride
+                });
         		dispose();
             }
         });

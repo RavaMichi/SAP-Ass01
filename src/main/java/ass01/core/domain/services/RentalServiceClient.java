@@ -53,8 +53,9 @@ public class RentalServiceClient implements RentalService{
 
     @Override
     public void addPlugin(String id, RentalServicePlugin plugin) {
-
+        // TODO
     }
+
 
     @Override
     public void applyPlugin(String pluginId, PluginParameter parameters) {
