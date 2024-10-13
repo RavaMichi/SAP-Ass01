@@ -52,7 +52,7 @@ public class RentalServiceClient implements RentalService{
     }
 
     @Override
-    public void addPlugin(String id, RentalServicePlugin plugin) {
+    public void addPlugin(String id, String pluginJar) {
         // TODO
     }
 

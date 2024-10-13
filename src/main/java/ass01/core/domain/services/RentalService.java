@@ -13,6 +13,6 @@ public interface RentalService {
     RentalServiceState getState();
 //    void setState(RentalServiceState state);
     List<RentalServicePlugin> getPlugins();
-    void addPlugin(String id, RentalServicePlugin plugin);
+    void addPlugin(String id, String pluginJar);
     void applyPlugin(String pluginId, PluginParameter parameters);
 }

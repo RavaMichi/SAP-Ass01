@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
  */
 public class PluginParameterDialog extends JDialog {
 
-    private RentalServicePlugin plugin;
+    private String pluginId;
     private JTextField idEBikeField;
     private JTextField userName;
     private JButton applyButton;
@@ -23,15 +23,15 @@ public class PluginParameterDialog extends JDialog {
     private String userId;
     private String bikeId;
 
-    public PluginParameterDialog(AppView owner, RentalServicePlugin plugin) {
-        super(owner, plugin.operationName(), true);
+    public PluginParameterDialog(AppView owner, String plugin) {
+        super(owner, plugin, true);
         initializeComponents();
         setupLayout();
         addEventHandlers();
         pack();
         setLocationRelativeTo(owner);
         app = owner;
-        this.plugin = plugin;
+        this.pluginId = plugin;
     }
 
     private void initializeComponents() {
@@ -67,10 +67,8 @@ public class PluginParameterDialog extends JDialog {
                 var params = new PluginParameter(userId, bikeId);
                 app.callRentalService(s -> {
                     // apply plugin
-                    s.applyPlugin(plugin.operationName(), params);
+                    s.applyPlugin(pluginId, params);
                 });
-                // add end-ride dialog
-//                new RideSimulationControlPanel(userRiding, bikeId, app).display();
 	            dispose();
             }
         });
@@ -82,12 +80,5 @@ public class PluginParameterDialog extends JDialog {
             }
         });
     }
-    
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//        	PluginParameterDialog dialog = new PluginParameterDialog(null);
-//            dialog.setVisible(true);
-//        });
-//    }
     
 }

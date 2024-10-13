@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 
@@ -33,18 +35,6 @@ public class AppView extends JFrame implements ActionListener {
         
         setLayout(new BorderLayout());
 
-//		addUserButton = new JButton("Add User");
-//		addUserButton.addActionListener(this);
-//
-//		addEBikeButton = new JButton("Add EBike");
-//		addEBikeButton.addActionListener(this);
-//
-//		startRideButton = new JButton("Start Ride");
-//		startRideButton.addActionListener(this);
-
-//		topPanel.add(addUserButton);
-//		topPanel.add(addEBikeButton);
-//		topPanel.add(startRideButton);
 	    add(topPanel,BorderLayout.NORTH);
 
         centralPanel = new VisualiserPanel(800,500,service);
@@ -59,12 +49,12 @@ public class AppView extends JFrame implements ActionListener {
 		startPolling();
     }
 
-	public void addPlugin(RentalServicePlugin plugin) {
-		service.addPlugin(plugin.operationName(), plugin);
+	public void addPlugin(String pluginJar, String operationName) {
+		service.addPlugin(operationName, pluginJar);
 
-		JButton button = new JButton(plugin.operationName());
+		JButton button = new JButton(operationName);
 		button.addActionListener(e -> {
-			JDialog d = new PluginParameterDialog(this, plugin);
+			JDialog d = new PluginParameterDialog(this, operationName);
 			d.setVisible(true);
 		});
 

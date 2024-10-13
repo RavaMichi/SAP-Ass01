@@ -108,8 +108,16 @@ public class RentalServiceServer implements RentalService {
     }
 
     @Override
-    public void addPlugin(String id, RentalServicePlugin plugin) {
-        plugins.put(id, plugin);
+    public void addPlugin(String id, String pluginJar) {
+        try {
+            PluginClassLoader loader = new PluginClassLoader("plugins/"+pluginJar+".jar");
+            String className = "ass01.plugins." + pluginJar.replaceFirst(".jar","");
+            Class<?> pluginClass = loader.loadClass(className);
+            RentalServicePlugin rsPlugin = (RentalServicePlugin) pluginClass.getDeclaredConstructor(null).newInstance(null);
+            plugins.put(id, rsPlugin);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

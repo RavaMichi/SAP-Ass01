@@ -1,18 +1,5 @@
 package ass01.core.domain.services;
 
-import ass01.core.database.DataStorage;
-import ass01.core.database.HashMapStorage;
-import ass01.core.domain.entities.EBike;
-import ass01.core.domain.entities.P2d;
-import ass01.core.domain.entities.User;
-import ass01.core.domain.services.RentalService;
-import ass01.core.domain.services.RentalServiceHTTPClient;
-import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class HTTPClientTest {
 
 //    public static int port = 2220;
