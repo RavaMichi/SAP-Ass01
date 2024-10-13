@@ -66,9 +66,15 @@ public class RentalServiceServer implements RentalService {
                         PluginParameter param = JsonConverter.asPluginParameter(entity.getJsonObject("param"));
 
                         applyPlugin(plugin, param);
+                        req.response().setStatusCode(200).end();
 
                     } else if ("add".equals(type)) {
-                        // TODO
+                        String plugin = entity.getString("plugin");
+                        String jar = entity.getString("jar");
+
+                        addPlugin(plugin, jar);
+                        req.response().setStatusCode(200).end();
+
                     } else {
                         req.response()
                                 .setStatusCode(400) // 400 Bad Request
