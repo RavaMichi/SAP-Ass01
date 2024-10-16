@@ -1,6 +1,7 @@
 package ass01.core.domain.entities;
 
-import ass01.core.domain.services.RideSimulation;
+import ass01.core.domain.ports.RideSimulation;
+import ass01.core.domain.ports.RideSimulator;
 
 import java.util.Date;
 import java.util.Optional;
@@ -13,7 +14,7 @@ public class Ride {
 	private EBike ebike;
 	private boolean ongoing;
 	private String id;
-	private RideSimulation rideSimulation;
+	private RideSimulation simulation = null;
 
 	public Ride(String id, User user, EBike ebike, Date startedDate, Optional<Date> endDate, boolean ongoing) {
 		this.id = id;
@@ -31,16 +32,16 @@ public class Ride {
 		return id;
 	}
 
-	public void start() {
+	public void start(RideSimulator simulator) {
 		ongoing = true;
-        rideSimulation = new RideSimulation(this);
-        rideSimulation.start();
+		this.simulation = simulator.createSimulation(this);
+		simulation.startSimulation();
 	}
 	
 	public void end() {
 		endDate = Optional.of(new Date());
 		ongoing = false;
-		rideSimulation.stopSimulation();
+		simulation.stopSimulation();
 	}
 
 	public Date getStartedDate() {

@@ -1,4 +1,4 @@
-package ass01.core.domain.services;
+package ass01.core.domain.ports;
 
 import ass01.core.domain.entities.*;
 

@@ -1,6 +1,9 @@
-package ass01.core.domain.services;
+package ass01.core.util;
 
 import ass01.core.domain.entities.*;
+import ass01.core.domain.ports.PluginParameter;
+import ass01.core.domain.ports.RentalServicePlugin;
+import ass01.core.domain.services.RentalServiceState;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
@@ -94,7 +97,8 @@ public class JsonConverter {
         return new RentalServiceState(
                 json.getJsonArray("users").stream().map(o -> JsonConverter.asUser(JsonObject.mapFrom(o))).toList(),
                 json.getJsonArray("bikes").stream().map(o -> JsonConverter.asEBike(JsonObject.mapFrom(o))).toList(),
-                json.getJsonArray("rides").stream().map(o -> JsonConverter.asRide(JsonObject.mapFrom(o))).toList()
+                json.getJsonArray("rides").stream().map(o -> JsonConverter.asRide(JsonObject.mapFrom(o))).toList(),
+                null
         );
     }
     public static PluginParameter asPluginParameter(JsonObject json) {

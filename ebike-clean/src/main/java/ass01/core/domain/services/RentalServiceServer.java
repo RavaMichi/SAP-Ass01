@@ -1,7 +1,7 @@
 package ass01.core.domain.services;
 
-import ass01.core.database.DataStorage;
-import ass01.core.domain.entities.*;
+import ass01.core.domain.ports.*;
+import ass01.core.util.*;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.json.JsonArray;
@@ -19,13 +19,12 @@ public class RentalServiceServer implements RentalService {
 
     private RentalServiceState state;
     private Map<String, RentalServicePlugin> plugins;
-    private DataStorage storage;
+    private RentalServiceStorage storage;
 
-    public RentalServiceServer(int port, DataStorage storage) {
-        this.storage = storage;
+    public RentalServiceServer(int port, RentalServiceStorage storage, RideSimulator simulator) {
         this.plugins = new HashMap<>();
-        storage.save("state", null);
-        setState(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+        this.storage = storage;
+        setState(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), simulator));
 
         startServer(port);
     }
@@ -105,7 +104,7 @@ public class RentalServiceServer implements RentalService {
     private void setState(RentalServiceState state) {
         this.state = state;
         // save to db
-        storage.update("state", state);
+        storage.saveState(state);
     }
 
     @Override
@@ -134,6 +133,7 @@ public class RentalServiceServer implements RentalService {
             setState(plugin.apply(getState(), parameters));
         }
     }
+
     private static void log(String msg) {
         System.out.println("[RS Server] " + msg);
     }

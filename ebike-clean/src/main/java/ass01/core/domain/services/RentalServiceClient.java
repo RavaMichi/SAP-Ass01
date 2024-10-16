@@ -1,6 +1,7 @@
 package ass01.core.domain.services;
 
-import ass01.core.database.DataStorage;
+import ass01.core.domain.ports.*;
+import ass01.core.util.JsonConverter;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.client.WebClient;
@@ -8,17 +9,16 @@ import io.vertx.ext.web.client.WebClient;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class RentalServiceClient implements RentalService{
+public class RentalServiceClient implements RentalService {
     private final WebClient client;
     private final int port;
     private final String address = "localhost";
-    public RentalServiceClient(final int port, DataStorage storage) {
+    public RentalServiceClient(final int port) {
         this.port = port;
         Vertx vertx = Vertx.vertx();
         // client
         this.client = WebClient.create(vertx);
-        // start server if down
-        new RentalServiceServer(port, storage);
+
     }
     @Override
     public RentalServiceState getState() {

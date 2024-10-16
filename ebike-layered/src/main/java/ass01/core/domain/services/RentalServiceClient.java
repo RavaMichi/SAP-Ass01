@@ -12,13 +12,11 @@ public class RentalServiceClient implements RentalService{
     private final WebClient client;
     private final int port;
     private final String address = "localhost";
-    public RentalServiceClient(final int port, DataStorage storage) {
+    public RentalServiceClient(final int port) {
         this.port = port;
         Vertx vertx = Vertx.vertx();
         // client
         this.client = WebClient.create(vertx);
-        // start server if down
-        new RentalServiceServer(port, storage);
     }
     @Override
     public RentalServiceState getState() {

@@ -1,16 +1,19 @@
-package ass01.core.domain.services;
+package ass01.core.adapters;
 
-import ass01.core.database.DataStorage;
 import ass01.core.domain.entities.P2d;
 import ass01.core.domain.entities.Ride;
 import ass01.core.domain.entities.V2d;
+import ass01.core.domain.ports.RideSimulation;
 
-public class RideSimulation extends Thread {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RideSimulationImpl extends Thread implements RideSimulation {
 	
 	private final Ride ride;
 	private volatile boolean stopped;
 	
-	public RideSimulation(Ride ride) {
+	public RideSimulationImpl(Ride ride) {
 		this.ride = ride;
 		stopped = false;
 	}
@@ -76,6 +79,12 @@ public class RideSimulation extends Thread {
 		}
 	}
 
+	@Override
+	public void startSimulation() {
+		this.start();
+	}
+
+	@Override
 	public void stopSimulation() {
 		stopped = true;
 		interrupt();
