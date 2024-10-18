@@ -1,7 +1,7 @@
-package ass01.core.domain.entities;
+package ass01.core.business.entities;
 
-import ass01.core.domain.ports.RideSimulation;
-import ass01.core.domain.ports.RideSimulator;
+import ass01.core.business.ports.RideSimulation;
+import ass01.core.business.ports.RideSimulator;
 
 import java.util.Date;
 import java.util.Optional;

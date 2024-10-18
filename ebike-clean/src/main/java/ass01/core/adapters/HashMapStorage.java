@@ -1,9 +1,8 @@
 package ass01.core.adapters;
 
-import ass01.core.domain.services.RentalServiceState;
-import ass01.core.domain.ports.RentalServiceStorage;
+import ass01.core.business.services.RentalServiceState;
+import ass01.core.business.ports.RentalServiceStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -1,8 +1,8 @@
 package ass01.app;
 
 import ass01.core.adapters.*;
-import ass01.core.domain.ports.*;
-import ass01.core.domain.services.*;
+import ass01.core.business.ports.*;
+import ass01.core.business.services.*;
 
 public class RunApp {
     public static final int PORT = 1234;

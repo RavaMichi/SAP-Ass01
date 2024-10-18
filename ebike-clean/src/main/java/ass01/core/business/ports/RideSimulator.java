@@ -1,6 +1,6 @@
-package ass01.core.domain.ports;
+package ass01.core.business.ports;
 
-import ass01.core.domain.entities.Ride;
+import ass01.core.business.entities.Ride;
 
 public interface RideSimulator {
     RideSimulation createSimulation(Ride ride);

@@ -1,9 +1,9 @@
 package ass01.plugins;
 
-import ass01.core.domain.entities.EBike;
-import ass01.core.domain.entities.Ride;
-import ass01.core.domain.services.*;
-import ass01.core.domain.ports.*;
+import ass01.core.business.entities.EBike;
+import ass01.core.business.entities.Ride;
+import ass01.core.business.services.*;
+import ass01.core.business.ports.*;
 
 public class StartRidePlugin implements RentalServicePlugin {
     @Override

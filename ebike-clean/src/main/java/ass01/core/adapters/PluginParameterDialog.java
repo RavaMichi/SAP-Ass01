@@ -1,16 +1,12 @@
 package ass01.core.adapters;
 
-import ass01.core.domain.ports.PluginParameter;
+import ass01.core.business.ports.PluginParameter;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Adapted from AddEBikeDialog
- * 
- */
 public class PluginParameterDialog extends JDialog {
 
     private String pluginId;

@@ -1,9 +1,9 @@
 package ass01.core.util;
 
-import ass01.core.domain.entities.*;
-import ass01.core.domain.ports.PluginParameter;
-import ass01.core.domain.ports.RentalServicePlugin;
-import ass01.core.domain.services.RentalServiceState;
+import ass01.core.business.entities.*;
+import ass01.core.business.ports.PluginParameter;
+import ass01.core.business.ports.RentalServicePlugin;
+import ass01.core.business.services.RentalServiceState;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 

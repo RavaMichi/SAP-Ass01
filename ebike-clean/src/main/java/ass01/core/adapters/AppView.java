@@ -1,7 +1,7 @@
 package ass01.core.adapters;
 
-import ass01.core.domain.entities.EBike;
-import ass01.core.domain.services.RentalService;
+import ass01.core.business.entities.EBike;
+import ass01.core.business.services.RentalService;
 
 import javax.swing.*;
 import java.awt.*;

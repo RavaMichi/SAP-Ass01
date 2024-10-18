@@ -1,6 +1,6 @@
-package ass01.core.domain.services;
+package ass01.core.business.services;
 
-import ass01.core.domain.ports.*;
+import ass01.core.business.ports.*;
 import ass01.core.util.JsonConverter;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -9,6 +9,9 @@ import io.vertx.ext.web.client.WebClient;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Rental service client, communicating through http
+ */
 public class RentalServiceClient implements RentalService {
     private final WebClient client;
     private final int port;

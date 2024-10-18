@@ -1,4 +1,4 @@
-package ass01.core.domain.entities;
+package ass01.core.business.entities;
 
 public class User {
 

@@ -1,6 +1,6 @@
-package ass01.core.domain.services;
+package ass01.core.business.services;
 
-import ass01.core.domain.ports.*;
+import ass01.core.business.ports.*;
 
 import java.util.List;
 
@@ -9,26 +9,26 @@ import java.util.List;
  */
 public interface RentalService {
     /**
-     * Get the current state of the service
+     * Get the internal state of the service. It includes bikes, users and ongoing rides
      * @return
      */
     RentalServiceState getState();
 
     /**
-     * Get all attached plugins
+     * Get all the plugins installed in the service
      * @return
      */
     List<RentalServicePlugin> getPlugins();
 
     /**
-     * Add a plugin, giving the identifier and the JAR file name of the plugin
+     * Install a new plugin, by giving a JarFile name and a unique id
      * @param id
      * @param pluginJar
      */
     void addPlugin(String id, String pluginJar);
 
     /**
-     * Eecute the action of a given plugin. Parameters can be passed.
+     * Execute a plugin, called by its unique id and some configurable parameters
      * @param pluginId
      * @param parameters
      */

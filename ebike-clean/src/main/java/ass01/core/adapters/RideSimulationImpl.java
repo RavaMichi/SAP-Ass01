@@ -1,12 +1,9 @@
 package ass01.core.adapters;
 
-import ass01.core.domain.entities.P2d;
-import ass01.core.domain.entities.Ride;
-import ass01.core.domain.entities.V2d;
-import ass01.core.domain.ports.RideSimulation;
-
-import java.util.ArrayList;
-import java.util.List;
+import ass01.core.business.entities.P2d;
+import ass01.core.business.entities.Ride;
+import ass01.core.business.entities.V2d;
+import ass01.core.business.ports.RideSimulation;
 
 public class RideSimulationImpl extends Thread implements RideSimulation {
 	

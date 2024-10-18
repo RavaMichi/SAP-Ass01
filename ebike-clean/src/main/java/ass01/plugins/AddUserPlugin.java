@@ -1,8 +1,8 @@
 package ass01.plugins;
 
-import ass01.core.domain.entities.User;
-import ass01.core.domain.services.*;
-import ass01.core.domain.ports.*;
+import ass01.core.business.entities.User;
+import ass01.core.business.services.*;
+import ass01.core.business.ports.*;
 
 public class AddUserPlugin implements RentalServicePlugin {
     @Override
