@@ -7,10 +7,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Adapted from AddEBikeDialog
- * 
- */
 public class PluginParameterDialog extends JDialog {
 
     private String pluginId;

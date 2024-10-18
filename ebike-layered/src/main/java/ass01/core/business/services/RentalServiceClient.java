@@ -8,6 +8,9 @@ import io.vertx.ext.web.client.WebClient;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Rental service client, communicating through http
+ */
 public class RentalServiceClient implements RentalService{
     private final WebClient client;
     private final int port;
