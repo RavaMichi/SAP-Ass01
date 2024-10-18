@@ -1,8 +1,4 @@
-package ass01.core.domain.services;
-
-import ass01.core.domain.entities.EBike;
-import ass01.core.domain.entities.P2d;
-import ass01.core.domain.entities.User;
+package ass01.core.business.services;
 
 import java.util.List;
 
@@ -11,7 +7,6 @@ import java.util.List;
  */
 public interface RentalService {
     RentalServiceState getState();
-//    void setState(RentalServiceState state);
     List<RentalServicePlugin> getPlugins();
     void addPlugin(String id, String pluginJar);
     void applyPlugin(String pluginId, PluginParameter parameters);

@@ -1,6 +1,6 @@
-package ass01.core.domain.services;
+package ass01.core.business.services;
 
-import ass01.core.domain.entities.*;
+import ass01.core.business.entities.*;
 
 import java.util.List;
 

@@ -1,9 +1,8 @@
-package ass01.core.domain.services;
+package ass01.core.business.services;
 
-import ass01.core.database.DataStorage;
-import ass01.core.domain.entities.P2d;
-import ass01.core.domain.entities.Ride;
-import ass01.core.domain.entities.V2d;
+import ass01.core.business.entities.P2d;
+import ass01.core.business.entities.Ride;
+import ass01.core.business.entities.V2d;
 
 public class RideSimulation extends Thread {
 	

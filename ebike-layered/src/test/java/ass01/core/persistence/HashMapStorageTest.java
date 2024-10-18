@@ -1,4 +1,4 @@
-package ass01.core.database;
+package ass01.core.persistence;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

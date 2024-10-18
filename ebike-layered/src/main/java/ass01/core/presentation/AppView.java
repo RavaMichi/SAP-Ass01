@@ -1,25 +1,19 @@
 package ass01.core.presentation;
 
-import ass01.core.domain.entities.EBike;
-import ass01.core.domain.services.RentalService;
-import ass01.core.domain.services.RentalServicePlugin;
+import ass01.core.business.entities.EBike;
+import ass01.core.business.services.RentalService;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 
 
-public class AppView extends JFrame implements ActionListener {
+public class AppView extends JFrame {
 
 	private static final long POLLING_TIME = 100;
     private VisualiserPanel centralPanel;
-    private JButton addUserButton, addEBikeButton, startRideButton;
 	private RentalService service;
 	private JPanel topPanel = new JPanel();
     
@@ -95,21 +89,6 @@ public class AppView extends JFrame implements ActionListener {
 	 */
 	public void callRentalService(Consumer<RentalService> action) {
 		action.accept(this.service);
-	}
-        
-
-    @Override
-	public void actionPerformed(ActionEvent e) {
-//        if (e.getSource() == this.addEBikeButton) {
-//	        JDialog d = new AddEBikeDialog(this);
-//	        d.setVisible(true);
-//        } else if (e.getSource() == this.addUserButton) {
-//		    JDialog d = new AddUserDialog(this);
-//		    d.setVisible(true);
-//        } else if (e.getSource() == this.startRideButton) {
-//	        JDialog d = new PluginParameterDialog(this);
-//	        d.setVisible(true);
-//        }
 	}
 
 	private void log(String msg) {

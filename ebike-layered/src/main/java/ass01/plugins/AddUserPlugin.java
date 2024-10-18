@@ -1,9 +1,9 @@
 package ass01.plugins;
 
-import ass01.core.domain.entities.User;
-import ass01.core.domain.services.PluginParameter;
-import ass01.core.domain.services.RentalServicePlugin;
-import ass01.core.domain.services.RentalServiceState;
+import ass01.core.business.entities.User;
+import ass01.core.business.services.PluginParameter;
+import ass01.core.business.services.RentalServicePlugin;
+import ass01.core.business.services.RentalServiceState;
 
 public class AddUserPlugin implements RentalServicePlugin {
     @Override

@@ -1,8 +1,8 @@
 package ass01.plugins;
 
-import ass01.core.domain.services.PluginParameter;
-import ass01.core.domain.services.RentalServicePlugin;
-import ass01.core.domain.services.RentalServiceState;
+import ass01.core.business.services.PluginParameter;
+import ass01.core.business.services.RentalServicePlugin;
+import ass01.core.business.services.RentalServiceState;
 
 public class EndRidePlugin implements RentalServicePlugin {
     @Override

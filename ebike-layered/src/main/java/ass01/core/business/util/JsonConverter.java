@@ -1,6 +1,9 @@
-package ass01.core.domain.services;
+package ass01.core.business.util;
 
-import ass01.core.domain.entities.*;
+import ass01.core.business.entities.*;
+import ass01.core.business.services.PluginParameter;
+import ass01.core.business.services.RentalServicePlugin;
+import ass01.core.business.services.RentalServiceState;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 

@@ -1,8 +1,6 @@
-package ass01.core.domain.entities;
+package ass01.core.business.entities;
 
-import ass01.core.database.DataStorage;
-import ass01.core.domain.services.RentalService;
-import ass01.core.domain.services.RideSimulation;
+import ass01.core.business.services.RideSimulation;
 
 import java.util.Date;
 import java.util.Optional;

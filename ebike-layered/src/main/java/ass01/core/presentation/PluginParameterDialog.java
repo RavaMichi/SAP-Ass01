@@ -1,7 +1,6 @@
 package ass01.core.presentation;
 
-import ass01.core.domain.services.PluginParameter;
-import ass01.core.domain.services.RentalServicePlugin;
+import ass01.core.business.services.PluginParameter;
 
 import javax.swing.*;
 import java.awt.*;
