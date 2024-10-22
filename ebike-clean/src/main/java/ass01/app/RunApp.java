@@ -20,7 +20,7 @@ public class RunApp {
 
         // setup plugins
         view.addPlugin("AddBikePlugin", "Add Bike");
-        view.addPlugin("AddUserPlugin", "Add User");
+//        view.addPlugin("AddUserPlugin", "Add User");
         view.addPlugin("StartRidePlugin", "Start Ride");
         view.addPlugin("EndRidePlugin", "End Ride");
 

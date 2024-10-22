@@ -29,7 +29,11 @@ public class AppView extends JFrame {
         
         setLayout(new BorderLayout());
 
-	    add(topPanel,BorderLayout.NORTH);
+		// add plugin button
+		JButton button = new JButton("Add plugin");
+		button.addActionListener(e -> new AddPluginDialog(this).setVisible(true));
+		topPanel.add(button);
+		add(topPanel,BorderLayout.NORTH);
 
         centralPanel = new VisualiserPanel(800,500,service);
 	    add(centralPanel,BorderLayout.CENTER);
@@ -142,4 +146,12 @@ public class AppView extends JFrame {
             repaint();
         }
     }
+
+	
+	
+//	public static void main(String[] args) {
+//		var w = new EBikeApp();
+//		w.display();
+//	}
+	
 }
