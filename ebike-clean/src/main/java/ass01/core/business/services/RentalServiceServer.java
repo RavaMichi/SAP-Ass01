@@ -25,7 +25,12 @@ public class RentalServiceServer implements RentalService {
     public RentalServiceServer(int port, RentalServiceStorage storage, RideSimulator simulator) {
         this.plugins = new HashMap<>();
         this.storage = storage;
-        setState(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), simulator));
+
+        // fetch persisted state
+        var s = storage
+                .readState()
+                .orElse(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), null));
+        setState(new RentalServiceState(s.users(), s.bikes(), s.rides(), simulator));
 
         startServer(port);
     }

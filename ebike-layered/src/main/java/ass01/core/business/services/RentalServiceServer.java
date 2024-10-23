@@ -27,7 +27,7 @@ public class RentalServiceServer implements RentalService {
         this.storage = storage;
         this.plugins = new HashMap<>();
 
-        // fetch state from storage
+        // fetch persisted state
         var startingState = storage
                 .find(STATE_ID, RentalServiceState.class)
                 .orElse(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
