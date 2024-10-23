@@ -1,4 +1,4 @@
-package ass01.core.util;
+package ass01.core.business.util;
 
 import ass01.core.business.entities.*;
 import ass01.core.business.ports.PluginParameter;

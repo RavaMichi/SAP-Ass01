@@ -18,4 +18,12 @@ public class FitnessFunctionTest {
 
         rule.check(importedClasses);
     }
+    @Test
+    public void portsRule() {
+        ArchRule rule =
+                classes().that().resideInAPackage("..business.ports..")
+                        .should().beInterfaces().orShould().beRecords();
+
+        rule.check(importedClasses);
+    }
 }
