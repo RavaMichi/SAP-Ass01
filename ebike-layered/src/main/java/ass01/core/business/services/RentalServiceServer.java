@@ -18,6 +18,7 @@ import java.util.Map;
  */
 public class RentalServiceServer implements RentalService {
 
+    private static final String STATE_ID = "state";
     private RentalServiceState state;
     private Map<String, RentalServicePlugin> plugins;
     private DataStorage storage;
@@ -25,8 +26,15 @@ public class RentalServiceServer implements RentalService {
     public RentalServiceServer(int port, DataStorage storage) {
         this.storage = storage;
         this.plugins = new HashMap<>();
-        storage.save("state", null);
-        setState(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+
+        // fetch state from storage
+        var startingState = storage
+                .find(STATE_ID, RentalServiceState.class)
+                .orElse(new RentalServiceState(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()));
+
+        this.state = startingState;
+        storage.delete(STATE_ID);
+        storage.save(STATE_ID, startingState);
 
         startServer(port);
     }
@@ -106,7 +114,7 @@ public class RentalServiceServer implements RentalService {
     private void setState(RentalServiceState state) {
         this.state = state;
         // save to db
-        storage.update("state", state);
+        storage.update(STATE_ID, state);
     }
 
     @Override
